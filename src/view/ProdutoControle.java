@@ -19,6 +19,7 @@ public class ProdutoControle extends AbstractTableModel{
 
     public void setList(List lista){
     this.lista = lista;
+    this.fireTableDataChanged();
     };
     public EtsProduto getBean(int row){
     return (EtsProduto)lista.get(row);
@@ -26,7 +27,7 @@ public class ProdutoControle extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-       return 10;
+       return lista.size();
     }
 
     @Override
@@ -37,8 +38,21 @@ return 4;
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
+EtsProduto produto = (EtsProduto) lista.get(rowIndex);
+        if (columnIndex == 0){
+        return produto.getEtsIdProduto();
+        }
+        if (columnIndex == 1){
+        return produto.getEtsNome();
+        }
+        if (columnIndex == 2){
+        return produto.getEtsPreco();
+        }
+        if (columnIndex == 3){
+        return produto.getEtsQuantidade();
+        }
+        return "";
 
-      return "";
     }
 
     @Override
@@ -50,10 +64,10 @@ return 4;
         return "nome";
         }
         if (column == 2){
-        return "validade";
+        return "preço";
         }
         if (column == 3){
-        return "preço";
+        return "quantidade";
         }
 
         return "";

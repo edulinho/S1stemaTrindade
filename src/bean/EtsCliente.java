@@ -122,7 +122,7 @@ public class EtsCliente  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_celular", nullable=false, length=15)
+    @Column(name="ets_celular", nullable=false, length=20)
     public String getEtsCelular() {
         return this.etsCelular;
     }
@@ -172,7 +172,7 @@ public class EtsCliente  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_telefoneResedencial", nullable=false, length=10)
+    @Column(name="ets_telefoneResedencial", nullable=false, length=20)
     public String getEtsTelefoneResedencial() {
         return this.etsTelefoneResedencial;
     }

@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package view;
-
+import dao.DaoProduto;
+import bean.EtsProduto;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import tools.Util;
 /**
  *
  * @author eduardo
@@ -14,12 +22,34 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
     /**
      * Creates new form JDlgProdutoIA
      */
+    public DaoProduto daoProduto;
+    MaskFormatter mascaradevalidade;
     public JDlgProdutoIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
               setLocationRelativeTo(null);
+               daoProduto = new DaoProduto();
+                try {
+            mascaradevalidade = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jFmtValidade.setFormatterFactory(new DefaultFormatterFactory(mascaradevalidade));
     }
-
+public EtsProduto viewBean(){
+        EtsProduto produto = new EtsProduto();
+        produto.setEtsIdProduto(Util.strInt(jTxtCodigo.getText()));
+        produto.setEtsNome(jTxtNome.getText());
+        produto.setEtsQuantidade(jTxtquantidade.getText());
+        produto.setEtsPreco(jTxtPreco.getText());
+       SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+        produto.setEtsValidade(formato.parse(jFmtValidade.getText()));
+        } catch (ParseException ex) {
+            System.out.println("Erro seu otario" + ex.getMessage());
+        }
+        return produto;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,6 +175,8 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxtNomeActionPerformed
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
+      EtsProduto etsProduto = viewBean();
+ daoProduto.insert(etsProduto);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

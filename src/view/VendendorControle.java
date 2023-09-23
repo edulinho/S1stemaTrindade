@@ -8,6 +8,7 @@ package view;
 import bean.EtsVendendor;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import bean.EtsVendendor;
 
 /**
  *
@@ -25,7 +26,7 @@ public class VendendorControle extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-       return 10;
+       return lista.size();
     }
 
     @Override
@@ -35,7 +36,20 @@ return 4;
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-      return "";
+     EtsVendendor etsVendendor = (EtsVendendor) lista.get(rowIndex);
+        if (columnIndex == 0){
+        return etsVendendor.getEtsIdvendendor();
+        }
+        if (columnIndex == 1){
+        return etsVendendor.getEtsComissao();
+        }
+        if (columnIndex == 2){
+        return etsVendendor.getEtsArea();
+        }
+        if (columnIndex == 3){
+        return etsVendendor.getEtsTelefone();
+        }
+        return "";
     }
 
     @Override

@@ -9,6 +9,7 @@ import bean.EtsProduto;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -44,7 +45,12 @@ public class DaoProduto extends DAO_Abstract{
 
     @Override
     public Object list(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       session.beginTransaction();
+        Criteria criteria = session.createCriteria(EtsProduto.class); //importar do bean e do hibernate; criteria é pra fazer select * from na O.O
+        criteria.add(Restrictions.eq("ets_id_produto", id)); //é um método estático; id é o parametro da linha 46
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
     }
 
     @Override

@@ -4,7 +4,14 @@
  * and open the template in the editor.
  */
 package view;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import bean.EtsCliente;
+import dao.ClienteDao;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tools.Util;
 import view.JDlgClientePesquisar;
 /**
@@ -12,17 +19,79 @@ import view.JDlgClientePesquisar;
  * @author eduardo
  */
 public class JDlgCliente extends javax.swing.JDialog {
-
-    /**
-     * Creates new form JDlgCliente
-     */
+private boolean incluindo;
+     public ClienteDao clienteDao;
+     public EtsCliente cliente;
+     MaskFormatter mascaraCPF, mascaraDataNascimento,mascaraCelular;
     public JDlgCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+          clienteDao = new ClienteDao();
         setTitle("Cliente");
       setLocationRelativeTo(null);
-         Util.habilitar(false, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,JFmtRg,jTxtNome,jTxtEmail,jTxtCidade,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
+         Util.habilitar(false, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,JFmtRg,jTxtNome,jTxtEmail,jTxtCidade,jFmtTelefoneResendencial,jTxtNacionalidade,jBtnExcluir,jBtnCancelar,jBtnConfirmar,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
+    try {
+            mascaraCPF = new MaskFormatter("###.###.###-##");
+            mascaraDataNascimento = new MaskFormatter("##/##/####");
+            mascaraCelular = new MaskFormatter("##-##########");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jFmtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCPF));
+        jFmtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNascimento));
+        JftmCelular.setFormatterFactory(new DefaultFormatterFactory(mascaraCelular));
+         jFmtTelefoneResendencial.setFormatterFactory(new DefaultFormatterFactory(mascaraCelular));
     }
+    public EtsCliente viewBean(){
+        EtsCliente cliente = new EtsCliente();
+        cliente.setEtsIdCliente(Util.strInt(jTxtCodigo.getText()));
+        cliente.setEtsNome(jTxtNome.getText());
+        cliente.setEtsRegiao(jTxtRegiao.getText());
+        cliente.setEtsCpf(jFmtCpf.getText());
+        cliente.setEtsCidade(jTxtCidade.getText());
+        cliente.setEtsEmail(jTxtEmail.getText());
+        cliente.setEtsBairro(jTxtBairro.getText());
+        cliente.setEtsCelular(JftmCelular.getText());
+        cliente.setEtsTelefoneResedencial(jFmtTelefoneResendencial.getText());
+        cliente.setEtsEstado(jTxtEstado.getText());
+        cliente.setEtsCidade(jTxtCidade.getText());
+        cliente.setEtsRg(JFmtRg.getText());
+        cliente.setEtsNacionalidade(jTxtNacionalidade.getText());
+        cliente.setEtsCep(jFmtCep.getText());
+      if (jCboSexo.getSelectedIndex() == 0){
+    cliente.setEtsSexo("m");
+    } else {
+    cliente.setEtsSexo("f");}
+       SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+        cliente.setEtsDatanascimento(formato.parse(jFmtDataNascimento.getText()));
+        } catch (ParseException ex) {
+            System.out.println("Erro seu otario" + ex.getMessage());
+        }
+return cliente;
+    }
+       public void beanView(EtsCliente cliente){
+        String id = String.valueOf(cliente.getEtsIdCliente());
+        jTxtCodigo.setText(id);
+        jTxtNome.setText(cliente.getEtsNome());
+        jTxtRegiao.setText(cliente.getEtsRegiao());
+        jFmtCpf.setText(cliente.getEtsCpf());
+        jTxtCidade.setText(cliente.getEtsCidade());
+        if (cliente.getEtsSexo()== "M"){
+    jCboSexo.setSelectedIndex(0);
+    }else{
+    jCboSexo.setSelectedIndex(1);}; 
+    jFmtDataNascimento.setText(Util.dateStr(cliente.getEtsDatanascimento()));
+    jTxtEmail.setText(cliente.getEtsEmail());
+    jTxtBairro.setText(cliente.getEtsBairro());
+    JftmCelular.setText(cliente.getEtsCelular());
+    jFmtTelefoneResendencial.setText(cliente.getEtsTelefoneResedencial());
+    jTxtEstado.setText(cliente.getEtsEstado());
+    JFmtRg.setText(cliente.getEtsRg());
+    jTxtNacionalidade.setText(cliente.getEtsNacionalidade());
+    jFmtCep.setText(cliente.getEtsCep());
+      }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -339,21 +408,24 @@ Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-   JDlgClientePesquisar jDlgClientepesquisar = new JDlgClientePesquisar(null, true);        
+   JDlgClientePesquisar jDlgClientepesquisar = new JDlgClientePesquisar(null, true);
+   jDlgClientepesquisar.setTelaAnterior(this);        
         jDlgClientepesquisar.setVisible(true);
         Util.habilitar(true,jBtnAlterar,jBtnCancelar,jBtnExcluir);
 Util.habilitar(false,jBtnIncluir,jBtnPesquisar,jBtnConfirmar);           // TODO add your handling code here:
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-Util.habilitar(true, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
+incluindo = false;
+        Util.habilitar(true, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
 Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar,jBtnExcluir);
  Util.habilitar(true,jBtnCancelar,jBtnConfirmar );
-Util.limparCampos( jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtCidade,JftmCelular,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);             // TODO add your handling code here:
+
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-Util.habilitar(true,  jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
+incluindo = true;
+        Util.habilitar(true,  jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
 Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar);
  Util.habilitar(true,jBtnCancelar,jBtnConfirmar);
 Util.limparCampos( jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);          // TODO add your handling code here:
@@ -363,15 +435,24 @@ Util.limparCampos( jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jT
  Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
         if(Util.perguntar("Deseja excluir o usuario?")==true){
         Util.mensagem("Exclusao feita com sucesso");
+         cliente = viewBean();
+            clienteDao.delete(cliente);
         }else{
         Util.mensagem("Exclusão cancelada");
         } 
         Util.habilitar(false, jTxtCodigo,jTxtNome,jFmtCpf,jTxtCidade,jFmtDataNascimento,JftmCelular,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
     Util.habilitar(false,jBtnCancelar,jBtnConfirmar,jBtnExcluir );// TODO add your handling code here:
+    Util.limparCampos( jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtCidade,JftmCelular,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);             // TODO add your handling code here:
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
+EtsCliente etscliente = viewBean();
+ if (incluindo == true) {
+            clienteDao.insert(etscliente);
+        } else {
+            clienteDao.update(etscliente);
+        } 
+        Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
     Util.habilitar(false,  jTxtCodigo,jTxtNome,jFmtCpf,jTxtCidade,jFmtDataNascimento,JftmCelular,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
     Util.habilitar(false,jBtnCancelar,jBtnConfirmar,jBtnExcluir );          // TODO add your handling code here:
     }//GEN-LAST:event_jBtnConfirmarActionPerformed

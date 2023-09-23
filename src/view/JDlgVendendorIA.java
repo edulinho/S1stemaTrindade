@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package view;
-
+import dao.VendendorDao;
+import bean.EtsVendendor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import tools.Util;
 /**
  *
  * @author eduardo
@@ -14,12 +22,28 @@ public class JDlgVendendorIA extends javax.swing.JDialog {
     /**
      * Creates new form JDlgVendendorIA
      */
+      MaskFormatter telefone;
+    public VendendorDao vendendorDao;
     public JDlgVendendorIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
               setLocationRelativeTo(null);
+     vendendorDao = new VendendorDao();
+       try {
+            telefone = new MaskFormatter("##-##########");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JfmtTelefone.setFormatterFactory(new DefaultFormatterFactory(telefone));
     }
-
+public EtsVendendor viewBean(){
+        EtsVendendor vendendor = new EtsVendendor();
+        vendendor.setEtsIdvendendor(Util.strInt(jTxtcodigo.getText()));
+        vendendor.setEtsComissao(Util.strInt(JTxtComissao.getText()));
+        vendendor.setEtsArea(jTxtArea.getText());
+        vendendor.setEtsTelefone(JfmtTelefone.getText());
+        return vendendor;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,7 +179,9 @@ public class JDlgVendendorIA extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxtCodigoUsuarioActionPerformed
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-
+EtsVendendor etsVendendor = viewBean();
+ vendendorDao.insert(etsVendendor);
+        setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBTnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTnCancelarActionPerformed

@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package view;
+import bean.EtsProduto;
 import tools.Util;
-import view.JDlgProdutoIA;
+import dao.DaoProduto;
+import java.util.List;
 /**
  *
  * @author eduardo
@@ -16,12 +18,19 @@ public class JDlgProduto extends javax.swing.JDialog {
      * Creates new form JDlgProduto
      */
     JDlgProdutoIA jDlgProdutoIA;
+    DaoProduto produtoDao;
+    ProdutoControle produtoControle;
     public JDlgProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("produto");
               setLocationRelativeTo(null);
               jDlgProdutoIA = new JDlgProdutoIA(null, true);
+              produtoDao = new DaoProduto();
+              List lista = produtoDao.listAll();
+              produtoControle = new ProdutoControle();
+        produtoControle.setList(lista);
+        jTable1.setModel(produtoControle);
     }
 
     /**
@@ -121,6 +130,12 @@ public class JDlgProduto extends javax.swing.JDialog {
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
     if(Util.perguntar("Deseja excluir o usuario?")==true){
+         Util.mensagem("exclusao feita com sucesso");
+        int sel = jTable1.getSelectedRow();
+             EtsProduto etsProduto = produtoControle.getBean(sel);
+             produtoDao.delete(etsProduto);
+            List lista = produtoDao.listAll();
+           produtoControle.setList(lista);
      Util.mensagem("exclusao feita com sucesso");
         }else{
   Util.mensagem("exlusao cancelada");

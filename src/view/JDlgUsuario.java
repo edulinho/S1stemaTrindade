@@ -6,23 +6,73 @@
 package view;
 import tools.Util;
 import view.JDlgUsuarioPesquisar;
+import dao.UsuarioDao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import bean.EtsUsuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 /**
  *
  * @author eduardo
  */
 public class JDlgUsuario extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDlgUsuario
-     */
+    private boolean incluindo;
+    MaskFormatter mascaraCPF, mascaraDataNascimento;
+    public UsuarioDao usuariosDAO;
+     public EtsUsuario usuario;
     public JDlgUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+        usuariosDAO = new UsuarioDao();
               setLocationRelativeTo(null);
        Util.habilitar(false, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo,jBtnCancelar,jBtnExcluir,jBtnConfirmar);
-    }
+        try {
+            mascaraCPF = new MaskFormatter("###.###.###-##");
+            mascaraDataNascimento = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jFmtCpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCPF));
+        jFmtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNascimento));
 
+    }
+    public EtsUsuario viewBean(){
+        EtsUsuario usuario = new EtsUsuario();
+        usuario.setEtsIdusuario(Util.strInt(jTxtCodigo.getText()));
+        usuario.setEtsNome(jTxtNome.getText());
+        usuario.setEtsApelido(jTxtApelido.getText());
+       SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+        usuario.setEtsDatanascimento(formato.parse(jFmtDataNascimento.getText()));
+        } catch (ParseException ex) {
+            System.out.println("Erro seu otario" + ex.getMessage());
+        }
+        usuario.setEtsCpf(jFmtCpf.getText());
+        usuario.setEtsSenha(jPwfSenha.getText());
+        usuario.setEtsNivel(jCboNivel.getSelectedIndex());
+        usuario.setEtsAtivo(jChbAtivo.isSelected() == true ? "S" : "N");
+return usuario;
+    }
+       public void beanView(EtsUsuario usuario){
+        String id = String.valueOf(usuario.getEtsIdusuario());
+        jTxtCodigo.setText(id);
+        jTxtNome.setText(usuario.getEtsNome());
+        jTxtApelido.setText(usuario.getEtsApelido());
+        jFmtCpf.setText(usuario.getEtsCpf());
+       jFmtDataNascimento.setText(Util.dateStr(usuario.getEtsDatanascimento()));
+        jPwfSenha.setText(usuario.getEtsSenha());
+        jCboNivel.setSelectedIndex(usuario.getEtsNivel());
+        if ( usuario.getEtsAtivo().equals("S") == true){
+           jChbAtivo.setSelected(true);
+        } else {
+        jChbAtivo.setSelected(false);    
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,6 +197,11 @@ public class JDlgUsuario extends javax.swing.JDialog {
         });
 
         jCboNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adminstrador", "Convidado", "vendendor" }));
+        jCboNivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCboNivelActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("código");
 
@@ -271,26 +326,30 @@ public class JDlgUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxtApelidoActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-   Util.habilitar(true, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
+incluindo = true;
+        Util.habilitar(true, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
 Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar);
  Util.habilitar(true,jBtnCancelar,jBtnConfirmar);
 Util.limparCampos(jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);    // TODO add your handling code here:
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-  Util.habilitar(true, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
+incluindo = false;
+        Util.habilitar(true, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
 Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar,jBtnExcluir);
  Util.habilitar(true,jBtnCancelar,jBtnConfirmar );
-Util.limparCampos(jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
    Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
         if(Util.perguntar("Deseja excluir o usuario?")==true){
-        Util.mensagem("exclusao cancelada");
+            Util.mensagem("exclusao feita com sucesso");
+                 usuario = viewBean();
+            usuariosDAO.delete(usuario);
+            Util.limparCampos(jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo );
         }else{
-        Util.mensagem("exclusao feita com sucesso");
+        Util.mensagem("exclusao cancelada");
         } 
         Util.habilitar(false, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
     Util.habilitar(false,jBtnCancelar,jBtnConfirmar,jBtnExcluir );
@@ -302,7 +361,13 @@ Util.limparCampos(jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPw
     }//GEN-LAST:event_jFmtDataNascimentoActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
- Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
+        EtsUsuario etsUsuario = viewBean();
+         if (incluindo == true) {
+            usuariosDAO.insert(etsUsuario);
+        } else {
+            usuariosDAO.update(etsUsuario);
+        } 
+        Util.habilitar(true,jBtnIncluir,jBtnAlterar,jBtnPesquisar);
     Util.habilitar(false, jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPwfSenha,jCboNivel,jChbAtivo);
     Util.habilitar(false,jBtnCancelar,jBtnConfirmar,jBtnExcluir );
         // TODO add your handling code here:
@@ -320,7 +385,8 @@ Util.limparCampos(jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,jTxtApelido,jPw
     }//GEN-LAST:event_jFmtCpfActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-  JDlgUsuarioPesquisar jDlgUsuariosPesquisar = new JDlgUsuarioPesquisar(null, true);        
+  JDlgUsuarioPesquisar jDlgUsuariosPesquisar = new JDlgUsuarioPesquisar(null, true);     
+    jDlgUsuariosPesquisar.setTelaAnterior(this);        
         jDlgUsuariosPesquisar.setVisible(true);
         Util.habilitar(true,jBtnAlterar,jBtnCancelar,jBtnExcluir);
 Util.habilitar(false,jBtnIncluir,jBtnPesquisar,jBtnConfirmar);
@@ -338,6 +404,10 @@ Util.habilitar(false,jBtnIncluir,jBtnPesquisar,jBtnConfirmar);
     private void jTxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtNomeActionPerformed
+
+    private void jCboNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboNivelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCboNivelActionPerformed
 
     /**
      * @param args the command line arguments

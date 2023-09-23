@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package view;
+import dao.UsuarioDao;
+import java.util.List;
+import bean.EtsUsuario;
 
 /**
  *
@@ -14,10 +17,18 @@ public class JDlgUsuarioPesquisar extends javax.swing.JDialog {
     /**
      * Creates new form JDlgUsuarioPesquisar
      */
+    private JDlgUsuario jDlgUsuario;
+    UsuarioDao usuarioDao;
+    UsuarioControle usuarioControle;
     public JDlgUsuarioPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
               setLocationRelativeTo(null);
+     usuarioDao = new UsuarioDao();
+     List lista = usuarioDao.listAll();
+     usuarioControle = new UsuarioControle();
+             usuarioControle.setList(lista);
+        jTable1.setModel(usuarioControle);
     }
 
     /**
@@ -93,6 +104,9 @@ public class JDlgUsuarioPesquisar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOKActionPerformed
+int rowSel = jTable1.getSelectedRow();
+        EtsUsuario etsUsuario = usuarioControle.getBean(rowSel);
+       jDlgUsuario.beanView(etsUsuario);
         setVisible(false);            // TODO add your handling code here:
     }//GEN-LAST:event_JBtnOKActionPerformed
 
@@ -148,4 +162,7 @@ public class JDlgUsuarioPesquisar extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+public void setTelaAnterior(JDlgUsuario jDlgUsuarios) {
+        this.jDlgUsuario = jDlgUsuarios;
+    }
 }

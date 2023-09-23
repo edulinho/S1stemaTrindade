@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package view;
-
+import bean.EtsCliente;
+import dao.ClienteDao;
+import java.util.List;
+import view.ClienteControle;
 /**
  *
  * @author eduardo
@@ -14,11 +17,20 @@ public class JDlgClientePesquisar extends javax.swing.JDialog {
     /**
      * Creates new form JDlgClientePesquisar
      */
+    private JDlgCliente jDlgCliente;
+    ClienteDao clienteDao;
+    ClienteControle clienteControle;
     public JDlgClientePesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("pesquisar");
               setLocationRelativeTo(null);
+              clienteDao = new ClienteDao();
+              List lista = clienteDao.listAll();
+              clienteControle = new ClienteControle();
+              clienteControle.setList(lista);
+               jTable1.setModel(clienteControle);
+                setLocationRelativeTo(null);
     }
 
     /**
@@ -94,6 +106,9 @@ public class JDlgClientePesquisar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnOKActionPerformed
+       int rowSel = jTable1.getSelectedRow();
+        EtsCliente etsCliente = clienteControle.getBean(rowSel);
+       jDlgCliente.beanView(etsCliente);
         setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_JBtnOKActionPerformed
 
@@ -149,4 +164,7 @@ public class JDlgClientePesquisar extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+public void setTelaAnterior(JDlgCliente jDlgCliente) {
+        this.jDlgCliente = jDlgCliente;
+    }
 }

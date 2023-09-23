@@ -6,6 +6,10 @@
 package view;
 import tools.Util;
 import view.JDlgVendendorIA;
+import bean.EtsVendendor;
+import dao.VendendorDao;
+import java.util.List;
+import view.VendendorControle;
 /**
  *
  * @author eduardo
@@ -15,13 +19,21 @@ public class JDlgVendendor extends javax.swing.JDialog {
     /**
      * Creates new form JDlgVendendor
      */
+    EtsVendendor etsVendendor;
+    VendendorDao vendendorDao;
     JDlgVendendorIA jDlgVendendorIA;
+    VendendorControle vendendorControle;
     public JDlgVendendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("vendendor");
         jDlgVendendorIA = new JDlgVendendorIA(null, true);
               setLocationRelativeTo(null);
+              vendendorDao = new VendendorDao();
+List lista = vendendorDao.listAll();
+vendendorControle = new VendendorControle();
+vendendorControle.setList(lista);
+        jTable1.setModel(vendendorControle);
               
     }
 
@@ -123,6 +135,11 @@ public class JDlgVendendor extends javax.swing.JDialog {
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
     if(Util.perguntar("Deseja excluir o usuario?")==true){
      Util.mensagem("exclusao feita com sucesso");
+       int sel = jTable1.getSelectedRow();
+             EtsVendendor etsVendendor = vendendorControle.getBean(sel);
+             vendendorDao.delete(etsVendendor);
+            List lista = vendendorDao.listAll();
+           vendendorControle.setList(lista);
         }else{
   Util.mensagem("exlusao cancelada");
     }

@@ -9,6 +9,7 @@ package view;
 import bean.EtsUsuario;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import bean.EtsUsuario;
 
 /**
  *
@@ -27,7 +28,7 @@ public class UsuarioControle  extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-       return 10;
+ return lista.size();
     }
 
     @Override
@@ -37,10 +38,20 @@ return 4;
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-
-
-      return "";
-    }
+EtsUsuario etsUsuario = (EtsUsuario) lista.get(rowIndex);
+        if (columnIndex == 0){
+        return etsUsuario.getEtsIdusuario();
+        }
+        if (columnIndex == 1){
+        return etsUsuario.getEtsNome();
+        }
+        if (columnIndex == 2){
+        return etsUsuario.getEtsApelido();
+        }
+        if (columnIndex == 3){
+        return etsUsuario.getEtsCpf();
+        }
+        return "";    }
 
     @Override
     public String getColumnName(int column){

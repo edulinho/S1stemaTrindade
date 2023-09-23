@@ -91,7 +91,7 @@ public class EtsUsuario  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_cpf", nullable=false, length=11)
+    @Column(name="ets_cpf", nullable=false, length=18)
     public String getEtsCpf() {
         return this.etsCpf;
     }

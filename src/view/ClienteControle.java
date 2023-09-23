@@ -19,6 +19,7 @@ public class ClienteControle extends AbstractTableModel{
 
     public void setList(List lista){
     this.lista = lista;
+    this.fireTableDataChanged();
     };
     public EtsCliente getBean(int row){
     return (EtsCliente)lista.get(row);
@@ -26,7 +27,7 @@ public class ClienteControle extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-       return 10;
+     return lista.size();
     }
 
     @Override
@@ -36,7 +37,20 @@ return 4;
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-      return "";
+        EtsCliente etsCliente = (EtsCliente) lista.get(rowIndex);
+    if (columnIndex == 0){
+        return etsCliente.getEtsIdCliente();
+        }
+        if (columnIndex == 1){
+        return etsCliente.getEtsNome();
+        }
+        if (columnIndex == 2){
+        return etsCliente.getEtsEmail();
+        }
+        if (columnIndex == 3){
+        return etsCliente.getEtsCpf();
+        }
+        return "";
     }
 
     @Override
