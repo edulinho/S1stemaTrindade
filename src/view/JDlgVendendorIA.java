@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+import bean.EtsUsuario;
 import dao.VendendorDao;
 import bean.EtsVendendor;
 import java.text.ParseException;
@@ -42,6 +43,9 @@ public EtsVendendor viewBean(){
         vendendor.setEtsComissao(Util.strInt(JTxtComissao.getText()));
         vendendor.setEtsArea(jTxtArea.getText());
         vendendor.setEtsTelefone(JfmtTelefone.getText());
+ EtsUsuario usuario = new EtsUsuario();
+    usuario.setEtsIdusuario(Util.strInt(jTxtCodigoUsuario.getText()));
+    vendendor.setEtsUsuario(usuario);
         return vendendor;
 }
     /**
@@ -134,8 +138,11 @@ public EtsVendendor viewBean(){
                     .addComponent(JTxtComissao, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addComponent(jTxtCodigoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                .addGap(0, 113, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +166,7 @@ public EtsVendendor viewBean(){
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTxtCodigoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -185,7 +192,7 @@ EtsVendendor etsVendendor = viewBean();
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBTnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTnCancelarActionPerformed
-
+        setVisible(false);
     }//GEN-LAST:event_jBTnCancelarActionPerformed
 
     /**

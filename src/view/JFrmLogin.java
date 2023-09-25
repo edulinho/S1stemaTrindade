@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package view;
-
+import dao.UsuarioDao;
 /**
  *
  * @author eduardo
@@ -107,6 +107,7 @@ String senha = "12345";
 String usuario1 = "adm";
 String senha1 = "adm";
 
+UsuarioDao dao = new UsuarioDao();
  if(jTxtLogin.getText().equals(usuario) && jPwfSenha.getText().equals(senha)){
      JFrmPrincipal JFrmPrincipal = new JFrmPrincipal();
 JFrmPrincipal.setVisible(true);       // TODO add
