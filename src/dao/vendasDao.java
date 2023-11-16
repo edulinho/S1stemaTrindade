@@ -5,10 +5,13 @@
  */
 package dao;
 
+import bean.EtsCliente;
 import bean.EtsVendas;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -61,6 +64,38 @@ public class vendasDao extends DAO_Abstract{
         session.getTransaction().commit();
         return(ArrayList) lista;
     }
+   public List listData(Date data) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(EtsVendas.class);
+        criteria.add(Restrictions.eq("etsData", data));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
 
-}   
+     public List listtotal(double total){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsVendas.class);
+    criteria.add (Restrictions.gt("etsTotal", total));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+
+
+    public List listdatatotal(Date data, double total) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(EtsVendas.class);
+        criteria.add(Restrictions.eq("etsValidade", data));
+        criteria.add(Restrictions.gt("etsTotal", total));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+}
+
+
+
+
+  
 

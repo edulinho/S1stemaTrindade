@@ -40,6 +40,31 @@ public class VendendorDao extends DAO_Abstract{
     session.delete(object);
     session.getTransaction().commit();
     }
+    public List listcomissao(double comissao){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsVendendor.class);
+    criteria.add (Restrictions.gt("etsComissao", comissao));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+    public List listTelefone(String Telefone){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsVendendor.class);
+    criteria.add (Restrictions.like("etsTelefone", "%"+Telefone+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+      public List listTelefoneComissao(double comissao ,String Telefone){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsVendendor.class);
+    criteria.add (Restrictions.gt("etsComissao", comissao));
+    criteria.add (Restrictions.like("etsTelefone", "%"+Telefone+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
 
     @Override
     public Object list(int id) {

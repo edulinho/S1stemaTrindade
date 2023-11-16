@@ -26,7 +26,7 @@ public class EtsProduto  implements java.io.Serializable {
 
      private int etsIdProduto;
      private String etsNome;
-     private String etsPreco;
+     private long etsPreco;
      private Date etsValidade;
      private String etsQuantidade;
     
@@ -34,14 +34,14 @@ public class EtsProduto  implements java.io.Serializable {
     }
 
 	
-    public EtsProduto(int etsIdProduto, String etsNome, String etsPreco, Date etsValidade, String etsQuantidade) {
+    public EtsProduto(int etsIdProduto, String etsNome, long etsPreco, Date etsValidade, String etsQuantidade) {
         this.etsIdProduto = etsIdProduto;
         this.etsNome = etsNome;
         this.etsPreco = etsPreco;
         this.etsValidade = etsValidade;
         this.etsQuantidade = etsQuantidade;
     }
-    public EtsProduto(int etsIdProduto, String etsNome, String etsPreco, Date etsValidade, String etsQuantidade, Set etsVendasProdutos) {
+    public EtsProduto(int etsIdProduto, String etsNome, long etsPreco, Date etsValidade, String etsQuantidade, Set etsVendasProdutos) {
        this.etsIdProduto = etsIdProduto;
        this.etsNome = etsNome;
        this.etsPreco = etsPreco;
@@ -73,12 +73,12 @@ public class EtsProduto  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_preco", nullable=false, length=45)
-    public String getEtsPreco() {
+    @Column(name="ets_preco", nullable=false, precision=10, scale=0)
+    public long getEtsPreco() {
         return this.etsPreco;
     }
     
-    public void setEtsPreco(String etsPreco) {
+    public void setEtsPreco(long etsPreco) {
         this.etsPreco = etsPreco;
     }
 

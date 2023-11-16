@@ -23,13 +23,13 @@ public class EtsVendendor  implements java.io.Serializable {
      private int etsIdvendendor;
      private EtsUsuario etsUsuario;
      private String etsTelefone;
-     private long etsComissao;
+     private double etsComissao;
      private String etsArea;
 
     public EtsVendendor() {
     }
 
-    public EtsVendendor(int etsIdvendendor, EtsUsuario etsUsuario, String etsTelefone, long etsComissao, String etsArea) {
+    public EtsVendendor(int etsIdvendendor, EtsUsuario etsUsuario, String etsTelefone, double etsComissao, String etsArea) {
        this.etsIdvendendor = etsIdvendendor;
        this.etsUsuario = etsUsuario;
        this.etsTelefone = etsTelefone;
@@ -71,11 +71,11 @@ public class EtsVendendor  implements java.io.Serializable {
 
     
     @Column(name="ets_comissao", nullable=false, precision=10, scale=0)
-    public long getEtsComissao() {
+    public double getEtsComissao() {
         return this.etsComissao;
     }
     
-    public void setEtsComissao(long etsComissao) {
+    public void setEtsComissao(double etsComissao) {
         this.etsComissao = etsComissao;
     }
 

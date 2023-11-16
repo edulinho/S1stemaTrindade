@@ -7,6 +7,7 @@ package dao;
 
 import bean.EtsVendasProduto;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -61,6 +62,6 @@ public class VendasProdutoDao extends DAO_Abstract{
         session.getTransaction().commit();
         return(ArrayList) lista;
     }
-
+ 
 }  
 

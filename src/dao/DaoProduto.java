@@ -7,6 +7,7 @@ package dao;
 
 import bean.EtsProduto;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
@@ -60,6 +61,34 @@ public class DaoProduto extends DAO_Abstract{
         List lista = criteria.list();
         session.getTransaction().commit();
         return(ArrayList) lista;
+    }
+    public List listData(Date data) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(EtsProduto.class);
+        criteria.add(Restrictions.eq("etsValidade", data));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+     public List listNome(String nome){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsProduto.class);
+    criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+
+
+    public List listdatanome(Date data, String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(EtsProduto.class);
+        criteria.add(Restrictions.eq("etsValidade", data));
+        criteria.add(Restrictions.like("etsNome", "%"+nome+"%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
     }
 
 }   

@@ -21,6 +21,7 @@ public class UsuarioControle  extends AbstractTableModel{
 
     public void setList(List lista){
     this.lista = lista;
+    this.fireTableDataChanged();
     };
     public EtsUsuario getBean(int row){
     return (EtsUsuario)lista.get(row);

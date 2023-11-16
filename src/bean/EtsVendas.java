@@ -29,12 +29,12 @@ public class EtsVendas  implements java.io.Serializable {
      private Date etsData;
      private String etsQuantidade;
      private double etsTotal;
-     private int etsVendendor;
+     private EtsVendendor etsVendendor;
 
     public EtsVendas() {
     }
 
-    public EtsVendas(int etsIdvendas, EtsCliente etsCliente, Date etsData, String etsQuantidade, double etsTotal, int etsVendendor) {
+    public EtsVendas(int etsIdvendas, EtsCliente etsCliente, Date etsData, String etsQuantidade, double etsTotal, EtsVendendor etsVendendor) {
        this.etsIdvendas = etsIdvendas;
        this.etsCliente = etsCliente;
        this.etsData = etsData;
@@ -96,12 +96,14 @@ public class EtsVendas  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_vendendor", nullable=false)
-    public int getEtsVendendor() {
+    
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ets_fkvendendor", nullable=false)
+    public EtsVendendor getEtsVendendor() {
         return this.etsVendendor;
     }
     
-    public void setEtsVendendor(int etsVendendor) {
+    public void setEtsVendendor(EtsVendendor etsVendendor) {
         this.etsVendendor = etsVendendor;
     }
 }

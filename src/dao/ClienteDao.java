@@ -61,6 +61,31 @@ public class ClienteDao extends DAO_Abstract{
         session.getTransaction().commit();
         return(ArrayList) lista;
     }
+    public List listNome(String nome){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsCliente.class);
+    criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+    public List ListSexo(String sexo){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsCliente.class);
+    criteria.add (Restrictions.like("etsSexo", "%"+sexo+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+      public List listSexoNome(String sexo ,String nome){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsCliente.class);
+    criteria.add (Restrictions.eq("etsSexo", sexo));
+    criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
 
 }
    

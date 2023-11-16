@@ -62,6 +62,41 @@ public class UsuarioDao extends DAO_Abstract{
         session.getTransaction().commit();
         return(ArrayList) lista;
     }
+    public List listNome(String nome){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsUsuario.class);
+    criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+    public List listCpf(String Cpf){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsUsuario.class);
+    criteria.add (Restrictions.like("etsCpf", "%"+Cpf+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+      public List listCpfNome(String Cpf ,String nome){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsUsuario.class);
+    criteria.add (Restrictions.like("etsCpf", "%"+Cpf+"%"));
+    criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+    
+    public EtsUsuario login(String usuario, String senha) {
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsUsuario.class);
+    criteria.add(Restrictions.eq("etsApelido", usuario));
+    criteria.add(Restrictions.eq("etsSenha", senha));
+    EtsUsuario usuarioAutenticado = (EtsUsuario) criteria.uniqueResult();
+    session.getTransaction().commit();
+    return usuarioAutenticado;
+}
 
 }
     

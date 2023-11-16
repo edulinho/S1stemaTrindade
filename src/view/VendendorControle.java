@@ -19,6 +19,7 @@ public class VendendorControle extends AbstractTableModel{
 
     public void setList(List lista){
     this.lista = lista;
+     this.fireTableDataChanged();
     };
     public EtsVendendor getBean(int row){
     return (EtsVendendor)lista.get(row);

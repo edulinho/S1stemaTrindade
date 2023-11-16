@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package view;
+import bean.EtsUsuario;
 import dao.UsuarioDao;
+import javax.swing.JOptionPane;
 /**
  *
  * @author eduardo
@@ -102,21 +104,19 @@ public class JFrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPwfSenhaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   String usuario = "Trindade";
-String senha = "12345";
-String usuario1 = "adm";
-String senha1 = "adm";
+ String usuario = jTxtLogin.getText();
+String senha = jPwfSenha.getText();
 
 UsuarioDao dao = new UsuarioDao();
- if(jTxtLogin.getText().equals(usuario) && jPwfSenha.getText().equals(senha)){
-     JFrmPrincipal JFrmPrincipal = new JFrmPrincipal();
-JFrmPrincipal.setVisible(true);       // TODO add
-}else if (jTxtLogin.getText().equals(usuario1) && jPwfSenha.getText().equals(senha1)){
- JFrmPrincipal Principal = new JFrmPrincipal();
-Principal.setVisible(true);
-}else{
-     System.out.println("login errado");
+EtsUsuario usuarioAutenticado = dao.login(usuario, senha);
+
+if (usuarioAutenticado != null) {
+    JFrmPrincipal JFrmPrincipal = new JFrmPrincipal();
+    JFrmPrincipal.setVisible(true);
+} else {
+    System.out.println("Login errado");
 }
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
