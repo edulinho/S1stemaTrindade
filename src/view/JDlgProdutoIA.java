@@ -41,7 +41,7 @@ public EtsProduto viewBean(){
         produto.setEtsIdProduto(Util.strInt(jTxtCodigo.getText()));
         produto.setEtsNome(jTxtNome.getText());
         produto.setEtsQuantidade(jTxtquantidade.getText());
-        produto.setEtsPreco(Util.strInt(jTxtPreco.getText()));
+        produto.setEtsPreco(Util.strDouble(jTxtPreco.getText()));
        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         try{
         produto.setEtsValidade(formato.parse(jFmtValidade.getText()));

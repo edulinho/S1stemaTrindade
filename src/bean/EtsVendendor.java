@@ -1,13 +1,17 @@
 package bean;
-// Generated 16/09/2023 15:18:59 by Hibernate Tools 4.3.1
+// Generated 07/12/2023 21:49:12 by Hibernate Tools 4.3.1
 
 
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,20 +27,21 @@ public class EtsVendendor  implements java.io.Serializable {
      private int etsIdvendendor;
      private EtsUsuario etsUsuario;
      private String etsTelefone;
-     private double etsComissao;
+     private Double etsComissao;
      private String etsArea;
+  
 
     public EtsVendendor() {
     }
 
-    public EtsVendendor(int etsIdvendendor, EtsUsuario etsUsuario, String etsTelefone, double etsComissao, String etsArea) {
-       this.etsIdvendendor = etsIdvendendor;
-       this.etsUsuario = etsUsuario;
-       this.etsTelefone = etsTelefone;
-       this.etsComissao = etsComissao;
-       this.etsArea = etsArea;
+	
+    public EtsVendendor(int etsIdvendendor, EtsUsuario etsUsuario, String etsTelefone, Double etsComissao, String etsArea) {
+        this.etsIdvendendor = etsIdvendendor;
+        this.etsUsuario = etsUsuario;
+        this.etsTelefone = etsTelefone;
+        this.etsComissao = etsComissao;
+        this.etsArea = etsArea;
     }
-   
      @Id 
 
     
@@ -70,12 +75,12 @@ public class EtsVendendor  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_comissao", nullable=false, precision=10, scale=0)
-    public double getEtsComissao() {
+    @Column(name="ets_comissao", nullable=false, precision=10)
+    public Double getEtsComissao() {
         return this.etsComissao;
     }
     
-    public void setEtsComissao(double etsComissao) {
+    public void setEtsComissao(Double etsComissao) {
         this.etsComissao = etsComissao;
     }
 
@@ -89,7 +94,10 @@ public class EtsVendendor  implements java.io.Serializable {
         this.etsArea = etsArea;
     }
 
-
+    @Override
+    public String toString() {
+        return etsUsuario.getEtsNome(); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
 }

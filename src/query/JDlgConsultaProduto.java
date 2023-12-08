@@ -23,6 +23,7 @@ import view.ProdutoControle;
 public class JDlgConsultaProduto extends javax.swing.JDialog {
 ProdutoControle controle;
 DaoProduto dao;
+    MaskFormatter mascaraDataNascimento;
     /**
      * Creates new form JDlgConsultaProduto
      */
@@ -36,14 +37,18 @@ DaoProduto dao;
          jTable1.setModel(controle);
          setTitle("consultaprodutos");
           setLocationRelativeTo(null);
-
-       
+           try {
+            mascaraDataNascimento = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraDataNascimento));
 
         
     }
     public Date strDate(String dateString) throws ParseException {
     if (dateString.trim().isEmpty()) {
-        // Retorne null ou outra lógica apropriada para datas vazias
+
         return null;
     }
 
@@ -68,6 +73,7 @@ DaoProduto dao;
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jFmtData = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,6 +113,13 @@ DaoProduto dao;
             }
         });
 
+        jButton1.setText("limpar data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,14 +133,14 @@ DaoProduto dao;
                             .addComponent(jLabel1)
                             .addComponent(JTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(JBtnConsulta))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(265, 265, 265)))))
+                            .addComponent(jLabel2))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,7 +154,8 @@ DaoProduto dao;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBtnConsulta)
-                    .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -155,11 +169,11 @@ DaoProduto dao;
     }//GEN-LAST:event_JTxtNomeActionPerformed
 
     private void JBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnConsultaActionPerformed
-  if (JTxtNome.getText().equals("") && jFmtData.getText().equals("")) {
+  if (JTxtNome.getText().equals("") && jFmtData.getText().equals("  /  /    ")) {
     List lista = dao.listAll();
     controle.setList(lista);
 } else {
-    if (!JTxtNome.getText().equals("") && !jFmtData.getText().equals("")) {
+    if (!JTxtNome.getText().equals("") && !jFmtData.getText().equals("  /  /    ")) {
         try {
             String valor = JTxtNome.getText();
             Date data = Util.strDate(jFmtData.getText());
@@ -188,6 +202,12 @@ DaoProduto dao;
     private void jFmtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFmtDataActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+Util.limparCampos(jFmtData);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,6 +254,7 @@ DaoProduto dao;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBtnConsulta;
     private javax.swing.JTextField JTxtNome;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFmtData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

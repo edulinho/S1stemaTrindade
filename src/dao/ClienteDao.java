@@ -69,10 +69,18 @@ public class ClienteDao extends DAO_Abstract{
     session.getTransaction().commit();
     return  lista;
     }
+    public List ListSexoM(String sexo){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsCliente.class);
+    criteria.add (Restrictions.eq("etsSexo", "homem"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
     public List ListSexo(String sexo){
     session.beginTransaction();
     Criteria criteria = session.createCriteria(EtsCliente.class);
-    criteria.add (Restrictions.like("etsSexo", "%"+sexo+"%"));
+    criteria.add (Restrictions.eq("etsSexo", "mulher"));
     List lista = criteria.list();
     session.getTransaction().commit();
     return  lista;
@@ -80,7 +88,16 @@ public class ClienteDao extends DAO_Abstract{
       public List listSexoNome(String sexo ,String nome){
     session.beginTransaction();
     Criteria criteria = session.createCriteria(EtsCliente.class);
-    criteria.add (Restrictions.eq("etsSexo", sexo));
+    criteria.add (Restrictions.eq("etsSexo", "mulher"));
+    criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return  lista;
+    }
+      public List listSexoNomeM(String sexo ,String nome){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsCliente.class);
+    criteria.add (Restrictions.eq("etsSexo", "homem"));
     criteria.add (Restrictions.like("etsNome", "%"+nome+"%"));
     List lista = criteria.list();
     session.getTransaction().commit();

@@ -1,11 +1,13 @@
 package bean;
-// Generated 16/09/2023 15:18:59 by Hibernate Tools 4.3.1
+// Generated 07/12/2023 21:49:12 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,20 +25,21 @@ public class EtsVendasProduto  implements java.io.Serializable {
 
      private int etsIdVendasProduto;
      private EtsProduto etsProduto;
-     private double etsValorUnitario;
+     private EtsVendas etsVendas;
+     private Double etsValorUnitario;
      private String etsQuantidade;
 
     public EtsVendasProduto() {
     }
 
-    public EtsVendasProduto(int etsIdVendasProduto, EtsProduto etsProduto, double etsValorUnitario, String etsQuantidade) {
-       this.etsIdVendasProduto = etsIdVendasProduto;
-       this.etsProduto = etsProduto;
-       this.etsValorUnitario = etsValorUnitario;
-       this.etsQuantidade = etsQuantidade;
+	
+    public EtsVendasProduto(int etsIdVendasProduto, EtsProduto etsProduto, Double etsValorUnitario, String etsQuantidade) {
+        this.etsIdVendasProduto = etsIdVendasProduto;
+        this.etsProduto = etsProduto;
+        this.etsValorUnitario = etsValorUnitario;
+        this.etsQuantidade = etsQuantidade;
     }
-   
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="ets_id_vendas_produto", unique=true, nullable=false)
@@ -58,13 +61,23 @@ public class EtsVendasProduto  implements java.io.Serializable {
         this.etsProduto = etsProduto;
     }
 
+@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ets_fk_venda")
+    public EtsVendas getEtsVendas() {
+        return this.etsVendas;
+    }
+    
+    public void setEtsVendas(EtsVendas etsVendas) {
+        this.etsVendas = etsVendas;
+    }
+
     
     @Column(name="ets_valorUnitario", nullable=false, precision=5)
-    public double getEtsValorUnitario() {
+    public Double getEtsValorUnitario() {
         return this.etsValorUnitario;
     }
     
-    public void setEtsValorUnitario(double etsValorUnitario) {
+    public void setEtsValorUnitario(Double etsValorUnitario) {
         this.etsValorUnitario = etsValorUnitario;
     }
 
@@ -77,6 +90,10 @@ public class EtsVendasProduto  implements java.io.Serializable {
     public void setEtsQuantidade(String etsQuantidade) {
         this.etsQuantidade = etsQuantidade;
     }
+
+
+
+
 }
 
 

@@ -426,7 +426,7 @@ Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar,jBtnExcluir);
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
 incluindo = true;
         Util.habilitar(true,  jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);
-Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar);
+Util.habilitar(false, jBtnIncluir,jBtnAlterar,jBtnPesquisar);   
  Util.habilitar(true,jBtnCancelar,jBtnConfirmar);
 Util.limparCampos( jTxtCodigo,jTxtNome,jFmtCpf,jFmtDataNascimento,JftmCelular,jTxtCidade,JFmtRg,jTxtNome,jTxtEmail,jFmtTelefoneResendencial,jTxtNacionalidade,jTxtNacionalidade,jTxtRegiao,jCboSexo,jTxtBairro,jTxtRegiao,jTxtEstado,jFmtCep);          // TODO add your handling code here:
     }//GEN-LAST:event_jBtnIncluirActionPerformed

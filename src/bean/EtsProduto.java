@@ -1,7 +1,8 @@
 package bean;
-// Generated 16/09/2023 15:18:59 by Hibernate Tools 4.3.1
+// Generated 07/12/2023 21:49:12 by Hibernate Tools 4.3.1
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,30 +27,21 @@ public class EtsProduto  implements java.io.Serializable {
 
      private int etsIdProduto;
      private String etsNome;
-     private long etsPreco;
+     private Double etsPreco;
      private Date etsValidade;
      private String etsQuantidade;
-    
+
     public EtsProduto() {
     }
 
 	
-    public EtsProduto(int etsIdProduto, String etsNome, long etsPreco, Date etsValidade, String etsQuantidade) {
+    public EtsProduto(int etsIdProduto, String etsNome, Double etsPreco, Date etsValidade, String etsQuantidade) {
         this.etsIdProduto = etsIdProduto;
         this.etsNome = etsNome;
         this.etsPreco = etsPreco;
         this.etsValidade = etsValidade;
         this.etsQuantidade = etsQuantidade;
     }
-    public EtsProduto(int etsIdProduto, String etsNome, long etsPreco, Date etsValidade, String etsQuantidade, Set etsVendasProdutos) {
-       this.etsIdProduto = etsIdProduto;
-       this.etsNome = etsNome;
-       this.etsPreco = etsPreco;
-       this.etsValidade = etsValidade;
-       this.etsQuantidade = etsQuantidade;
-   
-    }
-   
      @Id 
 
     
@@ -73,12 +65,12 @@ public class EtsProduto  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_preco", nullable=false, precision=10, scale=0)
-    public long getEtsPreco() {
+    @Column(name="ets_preco", nullable=false, precision=10)
+    public Double getEtsPreco() {
         return this.etsPreco;
     }
     
-    public void setEtsPreco(long etsPreco) {
+    public void setEtsPreco(Double etsPreco) {
         this.etsPreco = etsPreco;
     }
 
@@ -101,6 +93,14 @@ public class EtsProduto  implements java.io.Serializable {
     public void setEtsQuantidade(String etsQuantidade) {
         this.etsQuantidade = etsQuantidade;
     }
+
+    @Override
+    public String toString() {
+        return etsNome; //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
 }
 
 

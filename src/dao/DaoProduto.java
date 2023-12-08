@@ -65,7 +65,7 @@ public class DaoProduto extends DAO_Abstract{
     public List listData(Date data) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(EtsProduto.class);
-        criteria.add(Restrictions.eq("etsValidade", data));
+        criteria.add(Restrictions.gt("etsValidade", data));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

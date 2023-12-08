@@ -45,7 +45,7 @@ return 4;
         return etsCliente.getEtsNome();
         }
         if (columnIndex == 2){
-        return etsCliente.getEtsEmail();
+        return etsCliente.getEtsSexo();
         }
         if (columnIndex == 3){
         return etsCliente.getEtsCpf();
@@ -62,7 +62,7 @@ return 4;
         return "nome";
         }
         if (column == 2){
-        return "email";
+        return "sexo";
         }
         if (column == 3){
         return "cpf";
@@ -70,4 +70,5 @@ return 4;
 
         return "";
     };
+    
 }

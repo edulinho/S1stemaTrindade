@@ -49,7 +49,7 @@ EtsProduto produto = (EtsProduto) lista.get(rowIndex);
         return produto.getEtsPreco();
         }
         if (columnIndex == 3){
-        return produto.getEtsQuantidade();
+        return produto.getEtsValidade();
         }
         return "";
 
@@ -67,7 +67,7 @@ EtsProduto produto = (EtsProduto) lista.get(rowIndex);
         return "preço";
         }
         if (column == 3){
-        return "quantidade";
+        return "validade";
         }
 
         return "";

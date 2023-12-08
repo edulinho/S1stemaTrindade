@@ -92,6 +92,14 @@ public class vendasDao extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
     }
+    public List listVendas(EtsVendas vendas) {
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsVendas.class);
+    criteria.add(Restrictions.eq("etsCliente", vendas.getEtsCliente()));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return lista;
+}
 }
 
 

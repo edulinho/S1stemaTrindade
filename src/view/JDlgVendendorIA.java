@@ -40,7 +40,7 @@ public class JDlgVendendorIA extends javax.swing.JDialog {
 public EtsVendendor viewBean(){
         EtsVendendor vendendor = new EtsVendendor();
         vendendor.setEtsIdvendendor(Util.strInt(jTxtcodigo.getText()));
-        vendendor.setEtsComissao(Util.strInt(JTxtComissao.getText()));
+vendendor.setEtsComissao(Util.strDouble(JTxtComissao.getText()));
         vendendor.setEtsArea(jTxtArea.getText());
         vendendor.setEtsTelefone(JfmtTelefone.getText());
  EtsUsuario usuario = new EtsUsuario();

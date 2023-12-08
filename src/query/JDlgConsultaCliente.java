@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package query;
+import bean.EtsCliente;
 import view.ClienteControle;
 import dao.ClienteDao;
 import java.util.List;
@@ -29,6 +30,8 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
          jTable1.setModel(controle);
           setTitle("consultaCliente");
            setLocationRelativeTo(null);
+
+           
     }
 
     /**
@@ -80,7 +83,7 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        JCboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "homem", "mulher" }));
+        JCboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "M", "F" }));
         JCboSexo.setToolTipText("");
         JCboSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,25 +139,39 @@ public class JDlgConsultaCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_JTxtNomeActionPerformed
 
     private void JBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnConsultaActionPerformed
- if (JTxtNome.getText().equals("") && JCboSexo.getSelectedIndex() == -1) {
-            List lista = dao.listAll();
+   if (JTxtNome.getText().equals("") && JCboSexo.getSelectedIndex() == 0) {
+   List lista = dao.listAll();
             controle.setList(lista);
+            System.out.println("primeiro if");
+            
         }else{
-        if (!JTxtNome.getText().equals("")&& JCboSexo.getSelectedIndex() != -1) {
-            List lista = dao.listSexoNome(JTxtNome.getText(),(Util.intStr(JCboSexo.getSelectedIndex())));
-            controle.setList(lista);    
-        } else{
-        if (!JTxtNome.getText().equals("")) {
-            List lista = dao.listNome(JTxtNome.getText());
-            controle.setList(lista);
-        }
-        if (JCboSexo.getSelectedIndex() != -1) {
-            List lista = dao.ListSexo (Util.intStr(JCboSexo.getSelectedIndex()));
-            controle.setList(lista);
-        } 
-        }
-        }     
+            if (!JTxtNome.getText().equals("") && JCboSexo.getSelectedIndex() == 1) {
+             List lista = dao.listSexoNomeM(Util.intStr(JCboSexo.getSelectedIndex()), JTxtNome.getText());
+                controle.setList(lista);
 
+                }else{
+            if (!JTxtNome.getText().equals("") && JCboSexo.getSelectedIndex() == 2) {
+             List lista = dao.listSexoNome(Util.intStr(JCboSexo.getSelectedIndex()), JTxtNome.getText());
+                controle.setList(lista);
+
+            } else{
+                if (!JTxtNome.getText().equals("")) {
+                   List lista = dao.listNome(JTxtNome.getText());
+                controle.setList(lista);
+
+                }
+               if (JCboSexo.getSelectedIndex() == 1 ) {
+                 List lista = dao.ListSexoM (Util.intStr(JCboSexo.getSelectedIndex()));
+                controle.setList(lista);  
+
+                }
+               if (JCboSexo.getSelectedIndex() == 2 ) {
+                 List lista = dao.ListSexo (Util.intStr(JCboSexo.getSelectedIndex()));
+                controle.setList(lista);  
+                }
+            }
+        }
+   }
         // TODO add your handling code here:
     }//GEN-LAST:event_JBtnConsultaActionPerformed
 

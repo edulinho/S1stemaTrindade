@@ -13,20 +13,22 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author eduardo
  */
+
 public class vendasControle extends AbstractTableModel{
  List lista;
+ 
 
     public void setList(List lista){
     this.lista = lista;
      this.fireTableDataChanged();
     };
     public EtsVendas getBean(int row){
-    return (EtsVendas)lista.get(row);
+    return (EtsVendas)lista.get (row);
     }
 
     @Override
     public int getRowCount() {
-       return lista.size();
+    return lista != null ? lista.size() : 0;
     }
 
     @Override
@@ -41,7 +43,7 @@ return 4;
         return etsVendas.getEtsIdvendas();
         }
         if (columnIndex == 1){
-        return etsVendas.getEtsQuantidade();
+        return etsVendas.getEtsData();
         }
         if (columnIndex == 2){
         return etsVendas.getEtsTotal();
@@ -58,7 +60,7 @@ return 4;
         return "id";
         }
         if (column == 1){
-        return "quantidade";
+        return "data";
         }
         if (column == 2){
         return "total";
@@ -69,4 +71,5 @@ return 4;
 
         return "";
     };   
+    
 }

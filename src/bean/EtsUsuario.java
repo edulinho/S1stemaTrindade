@@ -1,5 +1,5 @@
 package bean;
-// Generated 16/09/2023 15:18:59 by Hibernate Tools 4.3.1
+// Generated 07/12/2023 21:49:12 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -32,6 +32,7 @@ public class EtsUsuario  implements java.io.Serializable {
      private String etsSenha;
      private int etsNivel;
      private String etsAtivo;
+   
 
     public EtsUsuario() {
     }
@@ -46,16 +47,6 @@ public class EtsUsuario  implements java.io.Serializable {
         this.etsSenha = etsSenha;
         this.etsNivel = etsNivel;
         this.etsAtivo = etsAtivo;
-    }
-    public EtsUsuario(int etsIdusuario, String etsNome, String etsApelido, String etsCpf, Date etsDatanascimento, String etsSenha, int etsNivel, String etsAtivo, Set etsVendendors) {
-       this.etsIdusuario = etsIdusuario;
-       this.etsNome = etsNome;
-       this.etsApelido = etsApelido;
-       this.etsCpf = etsCpf;
-       this.etsDatanascimento = etsDatanascimento;
-       this.etsSenha = etsSenha;
-       this.etsNivel = etsNivel;
-       this.etsAtivo = etsAtivo;
     }
    
      @Id 
@@ -140,4 +131,12 @@ public class EtsUsuario  implements java.io.Serializable {
         this.etsAtivo = etsAtivo;
     }
 
+    @Override
+    public String toString() {
+        return etsApelido; //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }
+
+

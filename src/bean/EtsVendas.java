@@ -1,15 +1,18 @@
 package bean;
-// Generated 16/09/2023 15:18:59 by Hibernate Tools 4.3.1
+// Generated 07/12/2023 21:49:12 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,21 +29,20 @@ public class EtsVendas  implements java.io.Serializable {
 
      private int etsIdvendas;
      private EtsCliente etsCliente;
-     private Date etsData;
-     private String etsQuantidade;
-     private double etsTotal;
      private EtsVendendor etsVendendor;
+     private Date etsData;
+     private Double etsTotal;
 
     public EtsVendas() {
     }
 
-    public EtsVendas(int etsIdvendas, EtsCliente etsCliente, Date etsData, String etsQuantidade, double etsTotal, EtsVendendor etsVendendor) {
-       this.etsIdvendas = etsIdvendas;
-       this.etsCliente = etsCliente;
-       this.etsData = etsData;
-       this.etsQuantidade = etsQuantidade;
-       this.etsTotal = etsTotal;
-       this.etsVendendor = etsVendendor;
+	
+    public EtsVendas(int etsIdvendas, EtsCliente etsCliente, EtsVendendor etsVendendor, Date etsData, Double etsTotal) {
+        this.etsIdvendas = etsIdvendas;
+        this.etsCliente = etsCliente;
+        this.etsVendendor = etsVendendor;
+        this.etsData = etsData;
+        this.etsTotal = etsTotal;
     }
    
      @Id 
@@ -65,6 +67,16 @@ public class EtsVendas  implements java.io.Serializable {
         this.etsCliente = etsCliente;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ets_fkvendendor", nullable=false)
+    public EtsVendendor getEtsVendendor() {
+        return this.etsVendendor;
+    }
+    
+    public void setEtsVendendor(EtsVendendor etsVendendor) {
+        this.etsVendendor = etsVendendor;
+    }
+
     @Temporal(TemporalType.DATE)
     @Column(name="ets_data", nullable=false, length=10)
     public Date getEtsData() {
@@ -76,36 +88,14 @@ public class EtsVendas  implements java.io.Serializable {
     }
 
     
-    @Column(name="ets_quantidade", nullable=false, length=500)
-    public String getEtsQuantidade() {
-        return this.etsQuantidade;
-    }
-    
-    public void setEtsQuantidade(String etsQuantidade) {
-        this.etsQuantidade = etsQuantidade;
-    }
-
-    
     @Column(name="ets_total", nullable=false, precision=10)
-    public double getEtsTotal() {
+    public Double getEtsTotal() {
         return this.etsTotal;
     }
     
-    public void setEtsTotal(double etsTotal) {
+    public void setEtsTotal(Double etsTotal) {
         this.etsTotal = etsTotal;
     }
 
-    
-    
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="ets_fkvendendor", nullable=false)
-    public EtsVendendor getEtsVendendor() {
-        return this.etsVendendor;
-    }
-    
-    public void setEtsVendendor(EtsVendendor etsVendendor) {
-        this.etsVendendor = etsVendendor;
-    }
 }
-
 

@@ -138,6 +138,7 @@ VendendorDao dao;
         if (JTxtTelefone.getText().equals("") && JTxtcomissao.getText().equals("")) {
             List lista = dao.listAll();
             controle.setList(lista);
+            
         }else{
             if (!JTxtTelefone.getText().equals("")&& !JTxtcomissao.getText().equals("")) {
                 List lista = dao.listTelefoneComissao(Util.strInt(JTxtcomissao.getText()), JTxtTelefone.getText());

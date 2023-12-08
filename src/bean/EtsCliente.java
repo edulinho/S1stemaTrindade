@@ -1,5 +1,5 @@
 package bean;
-// Generated 16/09/2023 15:18:59 by Hibernate Tools 4.3.1
+// Generated 07/12/2023 21:49:12 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -60,23 +60,6 @@ public class EtsCliente  implements java.io.Serializable {
         this.etsSexo = etsSexo;
         this.etsBairro = etsBairro;
         this.etsEstado = etsEstado;
-    }
-    public EtsCliente(int etsIdCliente, String etsNome, String etsCpf, Date etsDatanascimento, String etsCelular, String etsRg, String etsCep, String etsCidade, String etsEmail, String etsTelefoneResedencial, String etsNacionalidade, String etsRegiao, String etsSexo, String etsBairro, String etsEstado, Set etsVendases) {
-       this.etsIdCliente = etsIdCliente;
-       this.etsNome = etsNome;
-       this.etsCpf = etsCpf;
-       this.etsDatanascimento = etsDatanascimento;
-       this.etsCelular = etsCelular;
-       this.etsRg = etsRg;
-       this.etsCep = etsCep;
-       this.etsCidade = etsCidade;
-       this.etsEmail = etsEmail;
-       this.etsTelefoneResedencial = etsTelefoneResedencial;
-       this.etsNacionalidade = etsNacionalidade;
-       this.etsRegiao = etsRegiao;
-       this.etsSexo = etsSexo;
-       this.etsBairro = etsBairro;
-       this.etsEstado = etsEstado;
     }
    
      @Id 
@@ -230,6 +213,14 @@ public class EtsCliente  implements java.io.Serializable {
     public void setEtsEstado(String etsEstado) {
         this.etsEstado = etsEstado;
     }
+
+    @Override
+    public String toString() {
+        return etsNome; //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
 }
 
 
