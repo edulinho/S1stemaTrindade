@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
+import view.JDlgVendendor;
 /**
  *
  * @author eduardo
@@ -23,7 +24,9 @@ public class JDlgVendendorIA extends javax.swing.JDialog {
     /**
      * Creates new form JDlgVendendorIA
      */
+    JDlgVendendor jDlgVendendor;
       MaskFormatter telefone;
+      EtsVendendor Vendendors;
     public VendendorDao vendendorDao;
     public JDlgVendendorIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,15 +41,24 @@ public class JDlgVendendorIA extends javax.swing.JDialog {
         JfmtTelefone.setFormatterFactory(new DefaultFormatterFactory(telefone));
     }
 public EtsVendendor viewBean(){
-        EtsVendendor vendendor = new EtsVendendor();
-        vendendor.setEtsIdvendendor(Util.strInt(jTxtcodigo.getText()));
-vendendor.setEtsComissao(Util.strDouble(JTxtComissao.getText()));
-        vendendor.setEtsArea(jTxtArea.getText());
-        vendendor.setEtsTelefone(JfmtTelefone.getText());
+        EtsVendendor etsVendendor = new EtsVendendor();
+        etsVendendor.setEtsIdvendendor(Util.strInt(jTxtcodigo.getText()));
+etsVendendor.setEtsComissao(Util.strDouble(JTxtComissao.getText()));
+        etsVendendor.setEtsArea(jTxtArea.getText());
+        etsVendendor.setEtsTelefone(JfmtTelefone.getText());
  EtsUsuario usuario = new EtsUsuario();
     usuario.setEtsIdusuario(Util.strInt(jTxtCodigoUsuario.getText()));
-    vendendor.setEtsUsuario(usuario);
-        return vendendor;
+    etsVendendor.setEtsUsuario(usuario);
+        return etsVendendor;
+}
+public void beanView(EtsVendendor etsVendendor){
+Vendendors = etsVendendor;
+jTxtcodigo.setText(String.valueOf(etsVendendor.getEtsIdvendendor()));
+   JTxtComissao.setText (Util.doubleStr(etsVendendor.getEtsComissao()));
+      jTxtArea.setText(String.valueOf(etsVendendor.getEtsArea()));
+      EtsUsuario etsUsuario = etsVendendor.getEtsUsuario();
+  jTxtCodigoUsuario.setText(String.valueOf(etsUsuario.getEtsIdusuario()));
+        JfmtTelefone.setText(String.valueOf(etsVendendor.getEtsTelefone()));
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,19 +193,25 @@ vendendor.setEtsComissao(Util.strDouble(JTxtComissao.getText()));
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtcodigoActionPerformed
 
-    private void jTxtCodigoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodigoUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtCodigoUsuarioActionPerformed
-
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
 EtsVendendor etsVendendor = viewBean();
- vendendorDao.insert(etsVendendor);
+if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+           vendendorDao.insert(etsVendendor);
+  
+        } else {
+         jDlgVendendor.vendendorControle.updateBean(jDlgVendendor.getSelectedRowProd(), etsVendendor);
+         vendendorDao.update(etsVendendor);
+        }
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBTnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTnCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jBTnCancelarActionPerformed
+
+    private void jTxtCodigoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodigoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtCodigoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,7 +254,10 @@ EtsVendendor etsVendendor = viewBean();
             }
         });
     }
+public void setTelaAnterior(JDlgVendendor jDlgVendendor) {
+        this.jDlgVendendor = jDlgVendendor;
 
+  }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField JTxtComissao;
     private javax.swing.JFormattedTextField JfmtTelefone;

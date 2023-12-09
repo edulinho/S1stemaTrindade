@@ -45,6 +45,10 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/lp?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+     <!--  <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_eduardo_santos?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">db_eduardo_santos</property>
+    <property name="hibernate.connection.password">db_eduardo_santos</property>
+    -->
     <mapping class="bean.EtsVendasProduto"/>
     <mapping class="bean.EtsUsuario"/>
     <mapping class="bean.EtsCliente"/>

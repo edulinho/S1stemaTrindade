@@ -21,6 +21,7 @@ public class ProdutoControle extends AbstractTableModel{
     this.lista = lista;
     this.fireTableDataChanged();
     };
+    
     public EtsProduto getBean(int row){
     return (EtsProduto)lista.get(row);
     }
@@ -34,7 +35,11 @@ public class ProdutoControle extends AbstractTableModel{
     public int getColumnCount() {
 return 4;
     }
-
+    
+    public void updateBean(int index, EtsProduto etsProduto){ 
+        lista.set(index, etsProduto);
+        this.fireTableDataChanged();
+    }
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 

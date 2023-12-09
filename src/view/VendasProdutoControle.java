@@ -42,9 +42,9 @@ public class VendasProdutoControle extends AbstractTableModel {
             this.fireTableDataChanged();
     }
     
-    public void removeBean(int index) {
-            lista.remove(index);
-            this.fireTableDataChanged();
+   public void removeBean (int index){
+    lista.remove(index);
+    this.fireTableDataChanged();
     }
     
     public void updateBean(int index, EtsVendasProduto etsVendasProduto){

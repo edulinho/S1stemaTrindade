@@ -8,6 +8,7 @@ import bean.EtsProduto;
 import tools.Util;
 import dao.DaoProduto;
 import java.util.List;
+import view.JDlgProdutoIA;
 /**
  *
  * @author eduardo
@@ -20,6 +21,7 @@ public class JDlgProduto extends javax.swing.JDialog {
     JDlgProdutoIA jDlgProdutoIA;
     DaoProduto produtoDao;
     ProdutoControle produtoControle;
+    EtsProduto produto; 
     public JDlgProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -32,7 +34,10 @@ public class JDlgProduto extends javax.swing.JDialog {
         produtoControle.setList(lista);
         jTable1.setModel(produtoControle);
     }
-
+public int getSelectedRowProd() {
+        return jTable1.getSelectedRow();
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,8 +129,13 @@ public class JDlgProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-  jDlgProdutoIA.setTitle("alterar");
-        jDlgProdutoIA.setVisible(true);
+  JDlgProdutoIA jDlgProdutoIA = new JDlgProdutoIA(null,true);
+        jDlgProdutoIA.setTitle("alterar");
+  jDlgProdutoIA.setTelaAnterior(this);
+  
+        produto = (EtsProduto) produtoControle.getBean(getSelectedRowProd());
+jDlgProdutoIA.beanView(produto);
+   jDlgProdutoIA.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

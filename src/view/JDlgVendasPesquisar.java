@@ -13,7 +13,7 @@ import view.vendasControle;
  * @author eduardo
  */
 public class JDlgVendasPesquisar extends javax.swing.JDialog {
-private JDlgVendas jDlgVendas;
+ JDlgVendas jDlgVendas;
     vendasDao dao;
     vendasControle controle;
     /**

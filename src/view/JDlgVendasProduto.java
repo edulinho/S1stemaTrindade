@@ -208,6 +208,7 @@ DaoProduto dao;
         if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
             jDlgVendas.controle.addBean(etsVendasProduto);
         } else {
+            
             jDlgVendas.controle.updateBean(jDlgVendas.getSelectedRowProd(), etsVendasProduto);
         }
         setVisible(false);

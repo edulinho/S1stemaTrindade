@@ -18,7 +18,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="ets_vendas_produto"
-    ,catalog="lp"
+   // ,catalog="lp"
+       ,catalog="db_eduardo_santos"
 )
 public class EtsVendasProduto  implements java.io.Serializable {
 
@@ -51,7 +52,7 @@ public class EtsVendasProduto  implements java.io.Serializable {
         this.etsIdVendasProduto = etsIdVendasProduto;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ets_fk_produtos", nullable=false)
     public EtsProduto getEtsProduto() {
         return this.etsProduto;

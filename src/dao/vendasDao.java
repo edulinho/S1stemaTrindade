@@ -67,7 +67,7 @@ public class vendasDao extends DAO_Abstract{
    public List listData(Date data) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(EtsVendas.class);
-        criteria.add(Restrictions.eq("etsData", data));
+        criteria.add(Restrictions.gt("etsData", data));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -86,7 +86,7 @@ public class vendasDao extends DAO_Abstract{
     public List listdatatotal(Date data, double total) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(EtsVendas.class);
-        criteria.add(Restrictions.eq("etsValidade", data));
+        criteria.add(Restrictions.gt("etsValidade", data));
         criteria.add(Restrictions.gt("etsTotal", total));
         List lista = criteria.list();
         session.getTransaction().commit();

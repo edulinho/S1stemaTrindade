@@ -25,6 +25,7 @@ UsuarioDao dao;
      List lista = dao.listAll();
         controle.setList(lista);
          jTable1.setModel(controle);
+         setLocationRelativeTo(null);
     }
 
     /**

@@ -19,7 +19,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="ets_vendendor"
-    ,catalog="lp"
+  // ,catalog="lp"
+          ,catalog="db_eduardo_santos"
 )
 public class EtsVendendor  implements java.io.Serializable {
 
@@ -98,7 +99,15 @@ public class EtsVendendor  implements java.io.Serializable {
     public String toString() {
         return etsUsuario.getEtsNome(); //To change body of generated methods, choose Tools | Templates.
     }
-
+@Override
+      public boolean equals (Object object){
+      if(object instanceof EtsVendendor){
+      EtsVendendor etsVendendor = (EtsVendendor) object;
+        if(this.getEtsIdvendendor()== etsVendendor.getEtsIdvendendor())
+            return true;
+                }
+                return false;
+            }
 
 }
 

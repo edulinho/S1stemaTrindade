@@ -22,7 +22,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="ets_vendas"
-    ,catalog="lp"
+    //,catalog="lp"
+     ,catalog="db_eduardo_santos"
 )
 public class EtsVendas  implements java.io.Serializable {
 
@@ -57,7 +58,7 @@ public class EtsVendas  implements java.io.Serializable {
         this.etsIdvendas = etsIdvendas;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ets_fkcliente", nullable=false)
     public EtsCliente getEtsCliente() {
         return this.etsCliente;
@@ -67,7 +68,7 @@ public class EtsVendas  implements java.io.Serializable {
         this.etsCliente = etsCliente;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ets_fkvendendor", nullable=false)
     public EtsVendendor getEtsVendendor() {
         return this.etsVendendor;

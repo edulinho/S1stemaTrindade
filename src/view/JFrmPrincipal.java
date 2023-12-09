@@ -307,7 +307,8 @@ vendendor.setVisible(true);   // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMnuVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuVendasActionPerformed
-
+JDlgVendas jDlgVendas = new JDlgVendas(null, true);
+jDlgVendas.setVisible(true);
     }//GEN-LAST:event_jMnuVendasActionPerformed
 
     private void jMnuUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuUsActionPerformed

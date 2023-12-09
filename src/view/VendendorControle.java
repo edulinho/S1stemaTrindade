@@ -24,7 +24,10 @@ public class VendendorControle extends AbstractTableModel{
     public EtsVendendor getBean(int row){
     return (EtsVendendor)lista.get(row);
     }
-
+public void updateBean(int index, EtsVendendor etsVendendor){ 
+        lista.set(index, etsVendendor);
+        this.fireTableDataChanged();
+    }
     @Override
     public int getRowCount() {
        return lista.size();

@@ -43,6 +43,7 @@ public class JDlgVendas extends javax.swing.JDialog {
    public ClienteDao clienteDao;
    public VendasProdutoControle controle;
    public JDlgVendasProduto jDlgVendasProduto;
+   
     /**
      * Creates new form JDlgVendas
      */
@@ -50,7 +51,7 @@ public class JDlgVendas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        Util.habilitar(false, JTxtCodigo,JTxtTotal,JCboCliente,JCboVendendor,JFmtData,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnExcluir,JBtnCancelar,JBtnConfirmar);
+        Util.habilitar(false, JTxtCodigo,JTxtTotal,JCboCliente,JCboVendendor,JFmtData,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnExcluir,JBtnCancelar,JBtnConfirmar,jBtnIncluirProd,jBtnAlterarProd,jBtnExcluirprod);
            vDao = new vendasDao();
     List lista = new ArrayList();
       controle = new VendasProdutoControle();
@@ -89,6 +90,7 @@ public class JDlgVendas extends javax.swing.JDialog {
         return vendas;
     }
 public void beanView( EtsVendas etsVendas){
+    vendas = etsVendas;
 JTxtCodigo.setText(String.valueOf(etsVendas.getEtsIdvendas()));
         JFmtData.setText(Util.dateStr(etsVendas.getEtsData()));
         JCboCliente.setSelectedItem(etsVendas.getEtsCliente());
@@ -345,7 +347,7 @@ public int getSelectedRowProd() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnPesquisarActionPerformed
-Util.habilitar(true, JBtnExcluir,JBtnConfirmar,JBtnCancelar);
+        Util.habilitar(true, JBtnExcluir,JBtnConfirmar,JBtnCancelar);
         JDlgVendasPesquisar jDlgVendasPesquisar = new JDlgVendasPesquisar(null, true);
    jDlgVendasPesquisar.setTelaAnterior(this);        
         jDlgVendasPesquisar.setVisible(true);
@@ -353,32 +355,43 @@ Util.habilitar(true, JBtnExcluir,JBtnConfirmar,JBtnCancelar);
     }//GEN-LAST:event_JBtnPesquisarActionPerformed
 
     private void JBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnCancelarActionPerformed
-Util.habilitar(true,JBtnIncluir,JBtnAlterar,JBtnPesquisar,JBtnExcluir);
-Util.habilitar(false, JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnCancelar,JBtnConfirmar);
+Util.habilitar(true,JBtnIncluir,JBtnAlterar,JBtnPesquisar);
+Util.habilitar(false, JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnCancelar,JBtnConfirmar,jBtnAlterarProd,jBtnExcluirprod,jBtnIncluirProd,JBtnExcluir);
 Util.limparCampos(JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnCancelar,JBtnConfirmar);
+  controle.setList(new ArrayList());
         // TODO add your handling code here: 
     }//GEN-LAST:event_JBtnCancelarActionPerformed
 
     private void JBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnIncluirActionPerformed
- Util.habilitar(true, JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnCancelar,JBtnConfirmar);
+        incluindo = true;
+        Util.habilitar(true, JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnCancelar,JBtnConfirmar,jBtnIncluirProd,jBtnAlterarProd,jBtnExcluirprod);
  Util.habilitar(false, JBtnPesquisar,JBtnIncluir,JBtnAlterar,JBtnExcluir);
       Util.limparCampos(JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnCancelar,JBtnConfirmar);
- 
     controle.setList(new ArrayList());
         JTxtCodigo.grabFocus();
-        incluindo = true;
        vendas  = new EtsVendas();      // TODO add your handling code here:
     }//GEN-LAST:event_JBtnIncluirActionPerformed
 
     private void JBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnAlterarActionPerformed
-Util.habilitar(true, JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnAlterar,JBtnExcluir,JBtnCancelar,JBtnPesquisar,JBtnConfirmar);
+
+if (vendas != null) {
+
+           vDao = new vendasDao();
+                EtsVendasProduto evp;
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    evp = controle.getBean(linha);
+                    vDao.delete(evp);} 
+           Util.habilitar(true, JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnAlterar,JBtnExcluir,JBtnCancelar,JBtnPesquisar,JBtnConfirmar,jBtnIncluirProd,jBtnAlterarProd,jBtnExcluirprod);
 Util.habilitar(false, JBtnAlterar);
+        } else {
+            Util.mensagem("Faz uma pesquisa ai");
+        }
+        incluindo = false;
         // TODO add your handling code here:
     }//GEN-LAST:event_JBtnAlterarActionPerformed
 
     private void JBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnConfirmarActionPerformed
       vendas = viewBean();
- vDao = new vendasDao();
         
         if (incluindo == true) {
             vDao.insert(vendas);
@@ -400,16 +413,18 @@ Util.habilitar(false, JBtnAlterar);
                produtoDao.insert(etsVendasProduto);
             }
 
-           Util.limparCampos(JTxtCodigo,JFmtData,JTxtTotal,JBtnIncluir,JBtnCancelar,JBtnConfirmar);
-        Util.habilitar(false,JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnCancelar,JBtnConfirmar);
-        Util.habilitar(true, JBtnIncluir,JBtnExcluir,JBtnPesquisar,JBtnAlterar);
+
         }
-       
-       // TODO add your handling code here:
+                  Util.limparCampos(JTxtCodigo,JFmtData,JTxtTotal,JCboCliente,JCboVendendor);
+        Util.habilitar(false,JTxtCodigo,JCboCliente,JFmtData,JTxtTotal,JCboVendendor,JBtnIncluir,JBtnCancelar,JBtnConfirmar,jBtnAlterarProd,jBtnExcluirprod,jBtnIncluirProd,JBtnExcluir);
+        Util.habilitar(true, JBtnIncluir,JBtnExcluir,JBtnPesquisar,JBtnAlterar);
+         controle.setList(new ArrayList());
+         vendas = null;       
+// TODO add your handling code here:
     }//GEN-LAST:event_JBtnConfirmarActionPerformed
 
     private void jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirProdActionPerformed
-incluindo = true;
+
         jDlgVendasProduto = new JDlgVendasProduto(null, true);
         jDlgVendasProduto.setTitle("inclusão de produtos");
         jDlgVendasProduto.setTelaAnterior(this);
@@ -417,11 +432,11 @@ incluindo = true;
     }//GEN-LAST:event_jBtnIncluirProdActionPerformed
 
     private void jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarProdActionPerformed
-JDlgVendasProduto jDlgVendasProduto = new JDlgVendasProduto(null, true);
+        jDlgVendasProduto  = new JDlgVendasProduto(null, true);
 jDlgVendasProduto.setTitle("alteração");
 jDlgVendasProduto.setTelaAnterior(this);
-int linSel = jTable1.getSelectedRow();
-etsVendasProduto = (EtsVendasProduto) controle.getBean(linSel);
+
+     etsVendasProduto = (EtsVendasProduto) controle.getBean(getSelectedRowProd());
 jDlgVendasProduto.beanView(etsVendasProduto);
 jDlgVendasProduto.setVisible(true);
 
@@ -429,12 +444,11 @@ jDlgVendasProduto.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarProdActionPerformed
 
     private void jBtnExcluirprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirprodActionPerformed
-int linha = jTable1.getSelectedRow();
-        if (linha == -1) {
+        if (getSelectedRowProd() == -1) {
             Util.mensagem("Nenhuma linha selecionada");
         } else {
             if (Util.perguntar("Confirma exclusão do produto?") == true) {
-                controle.removeBean(linha);
+                controle.removeBean(getSelectedRowProd());
             }
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jBtnExcluirprodActionPerformed
@@ -442,10 +456,11 @@ int linha = jTable1.getSelectedRow();
     private void JBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBtnExcluirActionPerformed
 if (vendas != null) {
             if (Util.perguntar("Deseja excluir o pedido ?") == true) {
-                EtsVendasProduto etsVendasProduto;
+                vDao = new vendasDao();
+                EtsVendasProduto etsVendasProdutos;
                 for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
-                    etsVendasProduto = controle.getBean(linha);
-                    vDao.delete(etsVendasProduto);
+                    etsVendasProdutos = controle.getBean(linha);
+                    vDao.delete(etsVendasProdutos);
                 }
                 vDao.delete(vendas);
             }

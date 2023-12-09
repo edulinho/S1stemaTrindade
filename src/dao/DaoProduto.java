@@ -84,12 +84,21 @@ public class DaoProduto extends DAO_Abstract{
     public List listdatanome(Date data, String nome) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(EtsProduto.class);
-        criteria.add(Restrictions.eq("etsValidade", data));
+        criteria.add(Restrictions.gt("etsValidade", data));
         criteria.add(Restrictions.like("etsNome", "%"+nome+"%"));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
     }
+    public List listProduto(EtsProduto etsProduto){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(EtsProduto.class);
+    criteria.add(Restrictions.eq("etsIdProduto", etsProduto.getEtsIdProduto()));
+    List lista = criteria.list();
+    session.getTransaction().commit();
+    return lista;
+}
+
 
 }   
 

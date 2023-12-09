@@ -8,11 +8,14 @@ import dao.DaoProduto;
 import bean.EtsProduto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
+import view.ProdutoControle;
+import view.JDlgProduto;
 /**
  *
  * @author eduardo
@@ -22,7 +25,11 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
     /**
      * Creates new form JDlgProdutoIA
      */
+ 
+    public EtsProduto produto;
     public DaoProduto daoProduto;
+    ProdutoControle controle;
+    JDlgProduto jDlgProduto;
     MaskFormatter mascaradevalidade;
     public JDlgProdutoIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -50,6 +57,14 @@ public EtsProduto viewBean(){
         }
         return produto;
 }
+public void beanView( EtsProduto etsProduto){
+    produto = etsProduto;
+jTxtCodigo.setText(String.valueOf(etsProduto.getEtsIdProduto()));
+        jTxtNome.setText(String.valueOf(etsProduto.getEtsNome()));
+        jTxtPreco.setText(Util.doubleStr(etsProduto.getEtsPreco()));
+        jTxtquantidade.setText(String.valueOf(etsProduto.getEtsQuantidade()));
+        jFmtValidade.setText(Util.dateStr(etsProduto.getEtsValidade()));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,8 +191,14 @@ public EtsProduto viewBean(){
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
       EtsProduto etsProduto = viewBean();
- daoProduto.insert(etsProduto);
+ 
         setVisible(false);
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+           daoProduto.insert(etsProduto);
+        } else {
+         jDlgProduto.produtoControle.updateBean(jDlgProduto.getSelectedRowProd(), etsProduto);
+         daoProduto.update(etsProduto);
+        }
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBTnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTnCancelarActionPerformed
@@ -225,6 +246,10 @@ public EtsProduto viewBean(){
             }
         });
     }
+     public void setTelaAnterior(JDlgProduto jDlgProduto) {
+        this.jDlgProduto = jDlgProduto;
+
+  }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBTnCancelar;

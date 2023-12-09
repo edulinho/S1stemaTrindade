@@ -20,7 +20,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="ets_produto"
-    ,catalog="lp"
+    //,catalog="lp"
+        ,catalog="db_eduardo_santos"
 )
 public class EtsProduto  implements java.io.Serializable {
 

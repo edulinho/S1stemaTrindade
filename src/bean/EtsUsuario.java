@@ -19,7 +19,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="ets_usuario"
-    ,catalog="lp"
+    //catalog="lp"
+      ,catalog="db_eduardo_santos"
 )
 public class EtsUsuario  implements java.io.Serializable {
 

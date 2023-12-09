@@ -36,7 +36,10 @@ vendendorControle.setList(lista);
         jTable1.setModel(vendendorControle);
               
     }
-
+public int getSelectedRowProd() {
+        return jTable1.getSelectedRow();
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,13 +126,18 @@ vendendorControle.setList(lista);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-    jDlgVendendorIA.setTitle("vendendor");
+     
+        jDlgVendendorIA.setTitle("incluir");
     jDlgVendendorIA.setVisible(true);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-      jDlgVendendorIA.setTitle("alterar");
-    jDlgVendendorIA.setVisible(true);
+JDlgVendendorIA jDlgVendendorIA = new JDlgVendendorIA(null, true);
+        jDlgVendendorIA.setTitle("alterar");
+        jDlgVendendorIA.setTelaAnterior(this);
+    etsVendendor = (EtsVendendor) vendendorControle.getBean(getSelectedRowProd());
+jDlgVendendorIA.beanView(etsVendendor);
+   jDlgVendendorIA.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

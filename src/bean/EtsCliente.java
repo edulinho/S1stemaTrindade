@@ -19,7 +19,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="ets_cliente"
-    ,catalog="lp"
+   //,catalog="lp"
+   ,catalog="db_eduardo_santos"
 )
 public class EtsCliente  implements java.io.Serializable {
 
@@ -219,7 +220,15 @@ public class EtsCliente  implements java.io.Serializable {
         return etsNome; //To change body of generated methods, choose Tools | Templates.
     }
 
-
+@Override
+      public boolean equals (Object object){
+      if(object instanceof EtsCliente){
+      EtsCliente etsCliente = (EtsCliente) object;
+        if(this.getEtsIdCliente()== etsCliente.getEtsIdCliente())
+            return true;
+                }
+                return false;
+            }
 
 }
 
